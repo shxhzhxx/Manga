@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Manga</string>
+    <string name="reverse">reverse</string>
+    <string name="vertical">vertical</string>
+    <string name="snap">snap</string>
+
+</resources>
