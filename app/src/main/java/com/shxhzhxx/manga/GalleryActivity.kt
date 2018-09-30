@@ -44,7 +44,7 @@ class GalleryActivity : BaseActivity(), OnViewTapListener {
 
         performRequestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), object : PermissionsResultListener() {
             override fun onPermissionGranted() {
-                Thread(Runnable {
+                Thread {
                     var settings = App.db.dao().load(mPath)
                     if (settings == null) {
                         settings = PathSettings(mPath)
@@ -74,17 +74,19 @@ class GalleryActivity : BaseActivity(), OnViewTapListener {
                     }
 
                     runOnUiThread {
-                        tapLayout.setOnViewTapListener(this@GalleryActivity)
-                        if (mSettings.snap) {
-                            mSnapHelper.attachToRecyclerView(mListView)
+                        if (!isDestroyed) {
+                            tapLayout.setOnViewTapListener(this@GalleryActivity)
+                            if (mSettings.snap) {
+                                mSnapHelper.attachToRecyclerView(mListView)
+                            }
+                            mListView.layoutManager = mLayoutManager
+                            mListView.adapter = mAdapter
+                            mAdapter.list = list
+                            mAdapter.notifyDataSetChanged()
+                            mListView.scrollToPosition(index)
                         }
-                        mListView.layoutManager = mLayoutManager
-                        mListView.adapter = mAdapter
-                        mAdapter.list = list
-                        mAdapter.notifyDataSetChanged()
-                        mListView.scrollToPosition(index)
                     }
-                }).start()
+                }.start()
             }
         })
     }

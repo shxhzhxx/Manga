@@ -3,12 +3,14 @@ package com.shxhzhxx.manga
 import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shxhzhxx.imageloader.ImageLoader
 import com.shxhzhxx.sdk.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,7 +31,7 @@ class MainActivity : BaseActivity() {
 
         performRequestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), object : PermissionsResultListener() {
             override fun onPermissionGranted() {
-                Thread(Runnable {
+                Thread {
                     val map: LinkedHashMap<String, Path> = LinkedHashMap()
                     contentResolver.query(
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -57,14 +59,15 @@ class MainActivity : BaseActivity() {
                         close()
                     }
                     runOnUiThread {
-                        mAdapter.list = map.values.toList()
-                        mAdapter.notifyDataSetChanged()
+                        if (!isDestroyed) {
+                            mAdapter.list = map.values.toList()
+                            mAdapter.notifyDataSetChanged()
+                        }
                     }
-                }).start()
+                }.start()
             }
         })
     }
-
 
     data class Path(val displayName: String, val path: String, val cover: String, var count: Int = 0)
 
