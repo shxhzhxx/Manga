@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 class TapFrameLayout : FrameLayout {
     private val mDetector: GestureDetector by lazy {
         GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapUp(e: MotionEvent): Boolean {
+            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                 mListener?.onViewTap(this@TapFrameLayout, e.rawX, e.rawY)
                 return false
             }

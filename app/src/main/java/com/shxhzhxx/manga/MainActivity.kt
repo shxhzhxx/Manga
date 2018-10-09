@@ -3,8 +3,6 @@ package com.shxhzhxx.manga
 import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
