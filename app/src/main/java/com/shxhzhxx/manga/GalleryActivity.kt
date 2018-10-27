@@ -100,9 +100,9 @@ class GalleryActivity : BaseActivity(), OnViewTapListener {
         super.onStop()
 
         mSettings.lastTime = mAdapter.list[mLayoutManager.findFirstVisibleItemPosition()]
-        Thread(Runnable {
+        Thread {
             App.db.dao().save(mSettings)
-        }).start()
+        }.start()
     }
 
     inner class GalleryAdapter : RecyclerView.Adapter<GalleryAdapter.GalleryHolder>() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.shxhzhxx.manga.TapFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tapLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
+        tools:listitem="@layout/gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
